@@ -1336,6 +1336,7 @@ struct rtw_coex_stat {
 	bool bt_link_exist;
 	bool bt_whck_test;
 	bool bt_inq_page;
+	bool bt_inq_remain;
 	bool bt_inq;
 	bool bt_page;
 	bool bt_ble_voice;
@@ -1436,6 +1437,8 @@ struct rtw_coex {
 	struct delayed_work bt_relink_work;
 	struct delayed_work bt_reenable_work;
 	struct delayed_work defreeze_work;
+	struct delayed_work wl_remain_work;
+	struct delayed_work bt_remain_work;
 };
 
 #define DPK_RF_REG_NUM 7
@@ -1535,6 +1538,7 @@ struct rtw_dm_info {
 	u8 thermal_avg[RTW_RF_PATH_MAX];
 	u8 thermal_meter_k;
 	s8 delta_power_index[RTW_RF_PATH_MAX];
+	s8 delta_power_index_last[RTW_RF_PATH_MAX];
 	u8 default_ofdm_index;
 	bool pwr_trk_triggered;
 	bool pwr_trk_init_trigger;
@@ -1552,6 +1556,7 @@ struct rtw_dm_info {
 	/* [bandwidth 0:20M/1:40M][number of path] */
 	u8 cck_pd_lv[2][RTW_RF_PATH_MAX];
 	u32 cck_fa_avg;
+	u8 cck_pd_default;
 
 	/* save the last rx phy status for debug */
 	s8 rx_snr[RTW_RF_PATH_MAX];
